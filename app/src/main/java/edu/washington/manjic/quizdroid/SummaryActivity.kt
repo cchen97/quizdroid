@@ -11,23 +11,23 @@ class SummaryActivity  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
 
-        val heading: TextView = findViewById(R.id.textView_topic_heading)
-        heading.text = intent.extras[TOPIC] as String
-        val descriptionTextView: TextView = findViewById(R.id.textView_topic_description)
+        val topicName: TextView = findViewById(R.id.textView_topic_heading)
+        topicName.text = intent.extras[TOPIC] as String
+        val topicDescriptionView: TextView = findViewById(R.id.textView_topic_description)
         val descriptionText = when(intent.extras[TOPIC_NUM]) {
             0 -> getString(R.string.text_topic_description_1)
             1 -> getString(R.string.text_topic_description_2)
             2 -> getString(R.string.text_topic_description_3)
             else -> ""
         }
+        topicDescriptionView.text = descriptionText
 
-        descriptionTextView.text = descriptionText
         val currTopicNum: Int = intent.extras[TOPIC_NUM].toString().toInt() + 1
         val numQuestionsResName = "topic" + currTopicNum + "_numberOfQuestions"
         val resId = resources.getIdentifier(numQuestionsResName, "string", packageName)
-        val numQuestionsTextView: TextView = findViewById(R.id.textView_topic_numberOfQuestions)
-        val numQuestions = getString(resId)
-        numQuestionsTextView.text = "Number of questions: " + numQuestions
+        val totalNumOfQuestionsTextView: TextView = findViewById(R.id.textView_topic_numberOfQuestions)
+        val totalNumOfQuestions = getString(resId)
+        totalNumOfQuestionsTextView.text = "Total Number of questions: " + totalNumOfQuestions
 
 
         val startBtn = findViewById<Button>(R.id.button_startQuiz)
@@ -36,9 +36,8 @@ class SummaryActivity  : AppCompatActivity() {
                 .putExtra(QuestionActivity.TOPIC_NUM, currTopicNum)
                 .putExtra(QuestionActivity.QUESTION_NUM, "0")
                 .putExtra(QuestionActivity.NUM_CORRECT, "0")
-                .putExtra(QuestionActivity.NUM_QUESTIONS, numQuestions)
+                .putExtra(QuestionActivity.NUM_QUESTIONS, totalNumOfQuestions)
             startActivity(intent)
-
         }
     }
 
