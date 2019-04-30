@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">QuizDroid</string>
+    <string name="title_activity_summary">Summary</string>
+    <string name="text_overview_heading">Pick a Category</string>
+    <string name="text_topic_heading">TOPIC_TITLE</string>
+    <string name="text_topic_description">TOPIC_DESCRIPTION</string>
+    <string name="button_startQuiz">Begin</string>
+    <string name="button_submitAnswer">Submit</string>
+    <string name="button_nextQuestion">Next</string>
+</resources>

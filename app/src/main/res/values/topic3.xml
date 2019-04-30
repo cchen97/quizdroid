@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="topic3_numberOfQuestions">3</string>
+
+    <string name="topic3_question1_question">Do you love Iron man?</string>
+    <string name="topic3_question1_answer1">Yes</string>
+    <string name="topic3_question1_answer2">Yes</string>
+    <string name="topic3_question1_answer3">Yes</string>
+    <string name="topic3_question1_answer4">NOOOO</string>
+    <string name="topic3_question1_correctAnswer">NOOO</string>
+
+    <string name="topic3_question2_question">Do you love Captain America?</string>
+    <string name="topic3_question2_answer1">Yes</string>
+    <string name="topic3_question2_answer2">Yes</string>
+    <string name="topic3_question2_answer3">Yes</string>
+    <string name="topic3_question2_answer4">NOOOO</string>
+    <string name="topic3_question2_correctAnswer">NOOO</string>
+
+    <string name="topic3_question3_question">Do you love Thor?</string>
+    <string name="topic3_question3_answer1">Yes</string>
+    <string name="topic3_question3_answer2">Yes</string>
+    <string name="topic3_question3_answer3">Yes</string>
+    <string name="topic3_question3_answer4">NOOOO</string>
+    <string name="topic3_question3_correctAnswer">NOOO</string>
+</resources>

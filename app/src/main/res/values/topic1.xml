@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="topic1_numberOfQuestions">3</string>
+    <string name="topic1_question1_question">Do you love math?</string>
+    <string name="topic1_question1_answer1">Yes</string>
+    <string name="topic1_question1_answer2">Yes</string>
+    <string name="topic1_question1_answer3">Yes</string>
+    <string name="topic1_question1_answer4">NOOOO</string>
+    <string name="topic1_question1_correctAnswer">NOOOO</string>
+
+    <string name="topic1_question2_question">1 + 1 = ？</string>
+    <string name="topic1_question2_answer1">2</string>
+    <string name="topic1_question2_answer2">3</string>
+    <string name="topic1_question2_answer3">4</string>
+    <string name="topic1_question2_answer4">5</string>
+    <string name="topic1_question2_correctAnswer">2</string>
+
+    <string name="topic1_question3_question">1 * 1 = ？</string>
+    <string name="topic1_question3_answer1">1</string>
+    <string name="topic1_question3_answer2">2</string>
+    <string name="topic1_question3_answer3">3</string>
+    <string name="topic1_question3_answer4">4</string>
+    <string name="topic1_question3_correctAnswer">1</string>
+</resources>
