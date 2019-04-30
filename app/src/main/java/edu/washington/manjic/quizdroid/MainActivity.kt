@@ -32,8 +32,4 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-    companion object {
-        const val TAG: String = "ActivityMain"
-    }
 }

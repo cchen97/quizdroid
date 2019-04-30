@@ -45,9 +45,7 @@ class AnswerActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TOPIC = "edu.uw.ischool.manjic.quizdroid.answer.TOPIC"
         const val TOPIC_NUM = "edu.washington.manjic.quizdroid.answer.TOPIC_NUM"
-        const val DESCRIPTION = "edu.washington.manjic.quizdroid.answer.DESCRIPTION"
         const val QUESTION_NUM = "edu.washington.manjic.quizdroid.answer.QUESTION_NUM"
         const val NUM_CORRECT = "edu.washington.manjic.quizdroid.answer.DESCRIPTION"
         const val NUM_QUESTIONS = "edu.washington.manjic.quizdroid.answer.NUM_QUESTIONS"

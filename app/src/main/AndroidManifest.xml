@@ -16,10 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--<activity-->
-                <!--android:name=".Summary"-->
-                <!--android:label="@string/title_activity_summary"-->
-                <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity android:name=".SummaryActivity" />
         <activity android:name=".QuestionActivity" />
         <activity android:name=".AnswerActivity"></activity>

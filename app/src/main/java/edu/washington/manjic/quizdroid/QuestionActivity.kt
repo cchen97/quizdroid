@@ -71,10 +71,9 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TOPIC = "edu.uw.ischool.manjic.quizdroid.question.TOPIC"
-        const val TOPIC_NUM = "edu.uw.ischool.manjic.quizdroid.question.TOPIC_NUM"
-        const val QUESTION_NUM = "edu.uw.ischool.manjic.quizdroid.question.QUESTION_NUM"
-        const val NUM_CORRECT = "edu.uw.ischool.manjic.quizdroid.question.DESCRIPTION"
-        const val NUM_QUESTIONS = "edu.uw.ischool.manjic.quizdroid.question.NUM_QUESTIONS"
+        const val TOPIC_NUM = "edu.washington.manjic.quizdroid.question.TOPIC_NUM"
+        const val QUESTION_NUM = "edu.washington.manjic.quizdroid.question.QUESTION_NUM"
+        const val NUM_CORRECT = "edu.washington.manjic.quizdroid.question.DESCRIPTION"
+        const val NUM_QUESTIONS = "edu.washington.manjic.quizdroid.question.NUM_QUESTIONS"
     }
 }

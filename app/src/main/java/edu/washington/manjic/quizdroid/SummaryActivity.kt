@@ -46,6 +46,5 @@ class SummaryActivity  : AppCompatActivity() {
         const val TOPIC = "edu.washington.manjic.quizdroid.summary.TOPIC"
         const val TOPIC_NUM = "edu.washington.manjic.quizdroid.summary.TOPIC_NUM"
         const val DESCRIPTION = "edu.washington.manjic.quizdroid.summary.DESCRIPTION"
-        const val NUM_QUESTIONS = "edu.uw.ischool.manjic.QuizDroid.summary.NUM_QUESTIONS"
     }
 }
