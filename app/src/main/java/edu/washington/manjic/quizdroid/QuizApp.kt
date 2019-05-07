@@ -1,7 +1,6 @@
 package edu.washington.manjic.quizdroid
 
 import android.app.Application
-import android.nfc.Tag
 import android.util.Log
 
 class QuizApp : Application(){

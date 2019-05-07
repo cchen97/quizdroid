@@ -2,10 +2,7 @@ package edu.washington.manjic.quizdroid
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Button
-import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,13 +34,12 @@ class AnswerFragment: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_answer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
+
         val textViewGivenAnswer = view.findViewById<TextView>(R.id.textView_givenAnswer)
 
         textViewGivenAnswer.text = "Your answer: " + givenAnswer
@@ -52,7 +48,7 @@ class AnswerFragment: Fragment(){
         val textViewScoreTally = view.findViewById<TextView>(R.id.textView_scoreTally)
         textViewScoreTally.text = "You have $totalCorrectAnswers of $currQuestionNum correct."
 
-//
+
         val continueBtn = view.findViewById<Button>(R.id.button_nextQuestion)
         val totalNumberQuestions: String? = _quizData?.getQuestions()?.count().toString()
         if (currQuestionNum == totalNumberQuestions) {
@@ -81,24 +77,7 @@ class AnswerFragment: Fragment(){
     interface OnContinueBtnClickedListener {
         fun onContinueBtnClicked()
     }
-//        var isFinished = false
-//        if (intent.extras[QUESTION_NUM].toString().toInt() >= intent.extras[NUM_QUESTIONS].toString().toInt()) {
-//            continueBtn.text = "Finish"
-//            isFinished = true
-//        }
-//        val newIntent = when(isFinished) {
-//            true -> Intent(this, MainActivity::class.java)
-//            else -> Intent(this, QuestionActivity::class.java)
-//                .putExtra(QuestionActivity.TOPIC_NUM, intent.extras[TOPIC_NUM].toString())
-//                .putExtra(QuestionActivity.QUESTION_NUM, intent.extras[QUESTION_NUM].toString())
-//                .putExtra(QuestionActivity.NUM_CORRECT, intent.extras[NUM_CORRECT].toString())
-//                .putExtra(QuestionActivity.NUM_QUESTIONS, intent.extras[NUM_QUESTIONS].toString())
-//        }
-//        continueBtn.setOnClickListener {
-//            startActivity(newIntent)
-//        }
-//    }
-//
+
     companion object {
         @JvmStatic
         fun newInstance(givenAnswer: String, correctAnswer: String, totalCorrectAnswers: String,

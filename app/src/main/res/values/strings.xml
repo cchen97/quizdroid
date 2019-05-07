@@ -6,19 +6,16 @@
     <string name="text_topic_title">TOPIC_TITLE</string>
     <string name="text_topic_description">TOPIC_DESCRIPTION</string>
     <string name="text_topic_numQuestions">NUM_QUESTIONS</string>
-    <!--<string name="button_topic_startQuiz">Begin</string>-->
 
     <string name="text_quiz_question">QUESTION</string>
     <string name="radioButton_quiz_answer1">ANSWER_1</string>
     <string name="radioButton_quiz_answer2">ANSWER_2</string>
     <string name="radioButton_quiz_answer3">ANSWER_3</string>
     <string name="radioButton_quiz_answer4">ANSWER_4</string>
-    <!--<string name="button_quiz_submitAnswer">Submit</string>-->
 
     <string name="text_answer_givenAnswer">GIVEN_ANSWER</string>
     <string name="text_answer_correctAnswer">CORRECT_ANSWER</string>
     <string name="text_answer_score">CURRENT_SCORE</string>
-    <!--<string name="button_answer_nextQuestion">Next</string>-->
     <string name="button_answer_finishQuiz">Finish</string>
     <string name="button_startQuiz">Begin</string>
     <string name="button_submitAnswer">Submit</string>

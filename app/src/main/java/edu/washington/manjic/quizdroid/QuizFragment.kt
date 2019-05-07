@@ -26,7 +26,6 @@ class QuizFragment: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quiz, container, false)
     }
 
@@ -36,10 +35,6 @@ class QuizFragment: Fragment(){
         val questionText = view.findViewById<TextView>(R.id.textView_question)
         val currQuestion = _quizData?.getQuestions()?.get(index)
         questionText.text = currQuestion?.questionText ?: "Oops"
-//        val questionTextResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_question"
-//        val questionTextResId = resources.getIdentifier(questionTextResName, "string", packageName)
-//        questionText.text = getString(questionTextResId)
-//
         val answer1 = view.findViewById<RadioButton>(R.id.radioButton_answer1)
         answer1.text = currQuestion?.answer1 ?: "Oops"
         val answer2 = view.findViewById<RadioButton>(R.id.radioButton_answer2)
@@ -48,30 +43,7 @@ class QuizFragment: Fragment(){
         answer3.text = currQuestion?.answer3 ?: "Oops"
         val answer4 = view.findViewById<RadioButton>(R.id.radioButton_answer4)
         answer4.text = currQuestion?.answer4 ?: "Oops"
-//        val answer1ResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_answer1"
-//        val answer1ResId = resources.getIdentifier(answer1ResName, "string", packageName)
-//        answer1.text = getString(answer1ResId)
-//
-//        val answer2 = findViewById<RadioButton>(R.id.radioButton_answer2)
-//        val answer2ResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_answer2"
-//        val answer2ResId = resources.getIdentifier(answer2ResName, "string", packageName)
-//        answer2.text = getString(answer2ResId)
-//
-//        val answer3 = findViewById<RadioButton>(R.id.radioButton_answer3)
-//        val answer3ResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_answer3"
-//        val answer3ResId = resources.getIdentifier(answer3ResName, "string", packageName)
-//        answer3.text = getString(answer3ResId)
-//
-//        val answer4 = findViewById<RadioButton>(R.id.radioButton_answer4)
-//        val answer4ResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_answer4"
-//        val answer4ResId = resources.getIdentifier(answer4ResName, "string", packageName)
-//        answer4.text = getString(answer4ResId)
-//
-//        val correctAnswerResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_correctAnswer"
-//        val correctAnswerResId = resources.getIdentifier(correctAnswerResName, "string", packageName)
-//        val correctAnswer: String = getString(correctAnswerResId)
-//
-//
+
         val answerRadioBtnGroup: RadioGroup = view.findViewById(R.id.radioGroup_answersWrapper)
         val submitBtn: Button = view.findViewById(R.id.button_submitAnswer)
         submitBtn.isEnabled = false
