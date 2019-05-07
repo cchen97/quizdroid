@@ -22,7 +22,7 @@ class AnswerFragment: Fragment(){
     var correctAnswer: String? = null
     var totalCorrectAnswers: String? = null
     var currQuestionNum: String? = null
-    private var _quizData: HashMap<String, String>? = null
+    private var _quizData: Topic? = null
     var listener: OnContinueBtnClickedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,7 @@ class AnswerFragment: Fragment(){
 
 //
         val continueBtn = view.findViewById<Button>(R.id.button_nextQuestion)
-        val totalNumberQuestions: String? = _quizData?.get("numQuestions")
+        val totalNumberQuestions: String? = _quizData?.getQuestions()?.count().toString()
         if (currQuestionNum == totalNumberQuestions) {
             continueBtn.text = getString(R.string.button_answer_finishQuiz)
         }
@@ -102,7 +102,7 @@ class AnswerFragment: Fragment(){
     companion object {
         @JvmStatic
         fun newInstance(givenAnswer: String, correctAnswer: String, totalCorrectAnswers: String,
-                        currQuestionNum: String, quizData: HashMap<String, String>) =
+                        currQuestionNum: String, quizData: Topic) =
                 AnswerFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, givenAnswer)

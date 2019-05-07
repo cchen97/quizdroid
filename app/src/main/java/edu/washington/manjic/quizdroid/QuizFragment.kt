@@ -14,7 +14,7 @@ private const val ARG_PARAM1 = "currQuestionNumber"
 class QuizFragment: Fragment(){
     var currQuestionNumber: String? = null
     var listener: OnQuizSubmitBtnClickListener? = null
-    private var _quizData: HashMap<String, String>? = null
+    private var _quizData: Topic? = null
     private var _selectedAnswer: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,26 +32,22 @@ class QuizFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val index = (currQuestionNumber?.toInt() as Int) - 1
         val questionText = view.findViewById<TextView>(R.id.textView_question)
-        val currQuestionKey = "Q$currQuestionNumber"
-        questionText.text = _quizData?.get(currQuestionKey) ?: "Oops"
+        val currQuestion = _quizData?.getQuestions()?.get(index)
+        questionText.text = currQuestion?.questionText ?: "Oops"
 //        val questionTextResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_question"
 //        val questionTextResId = resources.getIdentifier(questionTextResName, "string", packageName)
 //        questionText.text = getString(questionTextResId)
 //
         val answer1 = view.findViewById<RadioButton>(R.id.radioButton_answer1)
-        val quizAnswer1Key: String = currQuestionKey + "_A1"
-        answer1.text = _quizData?.get(quizAnswer1Key) ?: "Oops"
+        answer1.text = currQuestion?.answer1 ?: "Oops"
         val answer2 = view.findViewById<RadioButton>(R.id.radioButton_answer2)
-        val quizAnswer2Key: String = currQuestionKey + "_A2"
-        answer2.text = _quizData?.get(quizAnswer2Key) ?: "Oops"
+        answer2.text = currQuestion?.answer2 ?: "Oops"
         val answer3 = view.findViewById<RadioButton>(R.id.radioButton_answer3)
-        val quizAnswer3Key: String = currQuestionKey + "_A3"
-        answer3.text = _quizData?.get(quizAnswer3Key) ?: "Oops"
+        answer3.text = currQuestion?.answer3 ?: "Oops"
         val answer4 = view.findViewById<RadioButton>(R.id.radioButton_answer4)
-        val quizAnswer4Key: String = currQuestionKey + "_A4"
-        answer4.text = _quizData?.get(quizAnswer4Key) ?: "Oops"
+        answer4.text = currQuestion?.answer4 ?: "Oops"
 //        val answer1ResName = "topic" + intent.extras[TOPIC_NUM] + "_question" + questionNumber + "_answer1"
 //        val answer1ResId = resources.getIdentifier(answer1ResName, "string", packageName)
 //        answer1.text = getString(answer1ResId)
@@ -84,8 +80,7 @@ class QuizFragment: Fragment(){
             submitBtn.isEnabled = true
             Log.i(TAG, _selectedAnswer)
         }
-        val quizCorrectAnswerKey: String = currQuestionKey + "_correctAnswer"
-        val quizCorrectAnswer = _quizData?.get(quizCorrectAnswerKey)
+        val quizCorrectAnswer = currQuestion?.getCorrectAnswer() as String
         submitBtn.setOnClickListener {
             listener?.onQuizSubmitBtnClicked(_selectedAnswer, quizCorrectAnswer)
         }
@@ -111,7 +106,7 @@ class QuizFragment: Fragment(){
 
     companion object {
         @JvmStatic
-        fun newInstance(currQuestionNumber: String, quizData: HashMap<String, String>) =
+        fun newInstance(currQuestionNumber: String, quizData: Topic) =
             QuizFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1 , currQuestionNumber)
