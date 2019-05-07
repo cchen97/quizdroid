@@ -19,13 +19,11 @@ class MainActivity : AppCompatActivity() {
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, topics)
         topicListView.adapter = adapter
 
-        topicListView.setOnItemClickListener { parent, view, position, id ->
+        topicListView.setOnItemClickListener { _, _ , position, id ->
             var currentView: ListView = findViewById(R.id.listView_topics)
             var chosenItem = currentView.getItemAtPosition(position)
-            val intent = Intent(this, SummaryActivity::class.java)
-                .putExtra(SummaryActivity.TOPIC, chosenItem.toString())
-                .putExtra(SummaryActivity.DESCRIPTION, chosenItem.toString())
-                .putExtra(SummaryActivity.TOPIC_NUM, position)
+            val intent = Intent(this, ControllerActivity::class.java)
+                .putExtra(ControllerActivity.TOPIC_NAME, chosenItem.toString())
             startActivity(intent)
         }
     }
