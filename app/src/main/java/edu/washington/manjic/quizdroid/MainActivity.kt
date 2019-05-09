@@ -84,17 +84,17 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.preferenceContainer -> {
-            val intent = Intent(applicationContext, PreferencesActivity::class.java)
-            startActivity(intent)
-            true
-        }
-        else -> {
-            super.onOptionsItemSelected(item)
-            false
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+//        R.id.preferenceContainer -> {
+//            val intent = Intent(applicationContext, PreferencesActivity::class.java)
+//            startActivity(intent)
+//            true
+//        }
+//        else -> {
+//            super.onOptionsItemSelected(item)
+//            false
+//        }
+//    }
 
 //    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
 //        R.id.preferenceContainer -> {
