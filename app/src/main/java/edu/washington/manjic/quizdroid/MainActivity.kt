@@ -6,16 +6,15 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import edu.washington.manjic.quizdroid.R.id.listView_topics
 import android.content.Intent
-import android.util.Log
-import java.io.InputStream
-import com.google.gson.Gson;
-import org.json.JSONArray
-import java.util.ArrayList
+import android.content.SharedPreferences
+import android.content.Context
+
 
 
 class MainActivity : AppCompatActivity() {
 
     private val topics = listOf("Science!", "Mathematics", "Marvel Super Heroes")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

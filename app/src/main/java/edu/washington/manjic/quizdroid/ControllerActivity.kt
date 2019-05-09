@@ -24,7 +24,6 @@ class ControllerActivity: AppCompatActivity(), TopicFragment.OnBeginBtnPressedLi
         currentTopic = intent.extras[TOPIC_NAME] as String
         var fragment: Fragment? = null
         currentTopicData = instance.repository.getTopic(currentTopic)
-        Log.i("aaaaaaaa", currentTopicData.getQuestions().get(0).answer1)
 
         if (currQuestionNumber == 0) {
             fragment = TopicFragment.newInstance(
