@@ -1,0 +1,136 @@
+[
+    { "title":"Math",
+      "desc":"A series of questions that will test your mathematical intuition.",
+      "questions":[
+        {
+          "text":"Sine, cosine, and what?",
+          "answer":"2",
+          "answers":[
+            "Quotient",
+                "Tangent",
+                "Agent",
+                "Potient"
+          ]
+        },
+        {
+          "text":"What does (9 + 9 / 3) resolve to?",
+          "answer":"2",
+          "answers":[
+            "6",
+                "12",
+                "9",
+                "15"
+          ]
+        },
+        {
+          "text":"What is two to the power of eight?",
+          "answer":"2",
+          "answers":[
+            "128",
+                "256",
+                "512",
+                "1024"
+          ]
+        },
+        {
+          "text":"What is 36 times 7?",
+          "answer":"4",
+          "answers":[
+            "256",
+                "264",
+                "246",
+                "252"
+          ]
+        }
+      ]
+    },
+    { "title":"Physics", "desc": "How well do you and gravity get along? Let's find out!",
+      "questions":[
+        {
+          "text":"What was Newton's first law?",
+          "answer":"2",
+          "answers":[
+            "The law of motion",
+                "The law of gravity",
+                "The law of movement",
+                "The law of order"
+          ]
+        },
+        {
+          "text":"What is the force that opposes the relative motion of two bodies that are in contact?",
+          "answer":"3",
+          "answers":[
+            "Normal Force",
+                "Magnetism",
+                "Friction",
+                "Gravity"
+          ]
+        },
+        {
+          "text":"The discovery of which law/theory provoked the surprised cry \"Euraka\"?",
+          "answer":"4",
+          "answers":[
+            "The theory of gravity",
+                "Newton's 4th Law",
+                "The theory of relativity",
+                "The Archimedes Principle"
+          ]
+        },
+        {
+          "text":"Magnets — How do the work?",
+          "answer":"2",
+          "answers":[
+            "Magic",
+                "The interactions between electrons of opposing charge",
+                "Friction",
+                "Electricity"
+
+          ]
+        }
+      ]
+    },
+    { "title":"Marvel Super Heroes", "desc":"Feel like you could assemble all the Avengers? Let's see what kind of Nick Fury you make.",
+      "questions":[
+         {
+           "text":"What powers Iron Man's suit?",
+           "answer":"2",
+           "answers":[
+            "He was bit by a robot",
+                "An Arc Reactor",
+                "A rare Unobtainium core",
+                "Pure Russian Titanium"
+           ]
+         },
+         {
+           "text":"In the comics, who else can lift Thor's hammer?",
+           "answer":"4",
+           "answers":[
+            "Wade Wilson",
+                "Miles Morales",
+                "Stephen Strange",
+                "Natasha Romanoff"
+           ]
+         },
+         {
+           "text":"In the comics, how many Infinity Gems are there?",
+           "answer":"3",
+           "answers":[
+            "4",
+                "5",
+                "6",
+                "7"
+           ]
+         },
+         {
+           "text":"How many Marvel movies has Stan Lee had a cameo in?",
+           "answer":"1",
+           "answers":[
+                "44",
+                "37",
+                "29",
+                "53"
+           ]
+         }
+      ]
+   }
+]
