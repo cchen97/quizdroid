@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 
 class ControllerActivity: AppCompatActivity(), TopicFragment.OnBeginBtnPressedListener, QuizFragment.OnQuizSubmitBtnClickListener,AnswerFragment.OnContinueBtnClickedListener {
     private lateinit var currentTopic: String
@@ -17,9 +18,13 @@ class ControllerActivity: AppCompatActivity(), TopicFragment.OnBeginBtnPressedLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controller)
 
+        val  inputStream = application.assets.open("questions.json")
+        val json = inputStream.bufferedReader().use{it.readText()}
+
         currentTopic = intent.extras[TOPIC_NAME] as String
         var fragment: Fragment? = null
         currentTopicData = instance.repository.getTopic(currentTopic)
+        Log.i("aaaaaaaa", currentTopicData.getQuestions().get(0).answer1)
 
         if (currQuestionNumber == 0) {
             fragment = TopicFragment.newInstance(

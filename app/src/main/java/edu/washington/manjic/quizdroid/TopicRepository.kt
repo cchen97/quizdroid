@@ -2,26 +2,57 @@ package edu.washington.manjic.quizdroid
 
 import android.app.Activity
 import android.content.res.AssetManager
-
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.util.ArrayList
 
-class TopicRepository {
+class TopicRepository() {
     private  var _topics = mutableListOf<Topic>()
 
     fun getTopic(topicName: String): Topic {
-        return (_topics.filter { it.topicTitle == topicName }).first()
+        Log.i("list", topicName)
+        Log.i("list", _topics.toString())
+        val res = (_topics.filter { it.topicTitle == topicName })
+        Log.i("list", res.get(0).topicTitle)
+        return res.first()
     }
 
     fun getTopics(): List<Topic> {
         return _topics.toList()
     }
 
+    fun loadData(json: String){
+        val array = JSONArray(json)
+        var topicList = ArrayList<Topic>()
+        for (i in 0 .. array.length()-1) {
+            val quizItem = array.getJSONObject(i)
+            val titleTopic = quizItem.getString("title")
+
+            val desc = quizItem.getString("desc")
+
+            val questionsList = quizItem.getJSONArray("questions")
+            val quizList = ArrayList<Quiz>()
+            for (j in 0..questionsList.length()-1){
+                val questionObject = questionsList.getJSONObject(j)
+                val text = questionObject.getString("text")
+                val answer =  questionObject.getString("answer").toInt()
+                val answerList = questionObject.getJSONArray("answers")
+                val quiz = Quiz(text, answerList.get(0).toString(), answerList.get(1).toString(), answerList.get(2).toString(),answerList.get(3).toString(),answer)
+                quizList.add(quiz)
+            }
+            val Topic = Topic(titleTopic,desc," ", quizList)
+            topicList.add(Topic)
+        }
+        _topics = topicList
+    }
+
+
     init{
-//
+
+
 //        val topic1 = Topic("Math",
 //            "Yo its Math.",
 //            "Trivia and tricky equations.")
