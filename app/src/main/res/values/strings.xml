@@ -21,4 +21,14 @@
     <string name="button_submitAnswer">Submit</string>
     <string name="button_nextQuestion">Next</string>
     <string name="input_your_onw_source">Input Your Onw Source</string>
+
+    <string name="text_preferences_urlInput">Absolute URL of questions.json</string>
+    <string name="text_preferences_timeInput">Number of minutes between refreshes</string>
+    <string name="button_preferences_submit">SAVE</string>
+    <string name="text_preferences_defaultUrlInfo">Defaults to http://tednewardsandbox.site44.com/questions.json</string>
+    <string name="text_preferences_suggestedUrl">Try entering \"https://api.myjson.com/bins/trcoa.json\"!</string>
+
+    <string name="sharedPrefs_storedUserPrefs_url">QUIZDROID_STORED_USER_PREFERENCES_URL</string>
+    <string name="sharedPrefs_storedUserPrefs_refresh">QUIZDROID_STORED_USER_PREFERENCES_REFRESH</string>
+    <string name="title_activity_preferences">Preferences</string>
 </resources>
