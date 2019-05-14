@@ -1,13 +1,21 @@
 package edu.washington.manjic.quizdroid
 
 import android.app.Activity
-import android.content.res.AssetManager
+import android.content.Context
 import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
+import java.io.UnsupportedEncodingException
 import java.util.ArrayList
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+
 
 class TopicRepository() {
     private  var _topics = mutableListOf<Topic>()
@@ -47,6 +55,57 @@ class TopicRepository() {
             topicList.add(Topic)
         }
         _topics = topicList
+    }
+
+    fun DownloadData(url: String, context:Context){
+        var urlString = ""
+
+        try {
+            urlString = "https://tednewardsandbox.site44.com/questions.json"
+            Log.v("TEST", urlString);
+        } catch (uee: UnsupportedEncodingException) {
+            Log.e("downloading Data", uee.toString())
+            return
+        }
+
+        val request = JsonArrayRequest(Request.Method.GET, urlString, null,
+            Response.Listener { response ->
+                var topicList = ArrayList<Topic>()
+
+                try {
+                    //parse the JSON results
+                    val array = response
+//                    val array =
+                    for (i in 0 .. array.length()-1) {
+                        val quizItem = array.getJSONObject(i)
+                        val titleTopic = quizItem.getString("title")
+                        Log.i("dataaaa", titleTopic)
+                        val desc = quizItem.getString("desc")
+
+                        val questionsList = quizItem.getJSONArray("questions")
+                        val quizList = ArrayList<Quiz>()
+                        for (j in 0..questionsList.length()-1){
+                            val questionObject = questionsList.getJSONObject(j)
+                            val text = questionObject.getString("text")
+                            val answer =  questionObject.getString("answer").toInt()
+                            val answerList = questionObject.getJSONArray("answers")
+                            val quiz = Quiz(text, answerList.get(0).toString(), answerList.get(1).toString(), answerList.get(2).toString(),answerList.get(3).toString(),answer)
+                            quizList.add(quiz)
+                        }
+                        val Topic = Topic(titleTopic,desc," ", quizList)
+                        topicList.add(Topic)
+                        _topics = topicList
+                        Log.i("test", "finish download")
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+
+            }, Response.ErrorListener { error -> Log.e("download data", error.toString()) })
+
+        val queue = Volley.newRequestQueue(context)
+        queue.add(request)
+        Log.i(QuizApp.TAG, "Quiz was loaded successfully.")
     }
 
 

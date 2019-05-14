@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -21,11 +22,14 @@ class MainActivity : AppCompatActivity() {
 //    private val topics = listOf("Science!", "Mathematics", "Marvel Super Heroes")
     private val instance = QuizApp.getSingletonInstance()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val listOfTopics = instance.repository.getTopics()
+
         val listOfTopicNames = listOfTopics.map { it ->
             it.topicTitle
         }

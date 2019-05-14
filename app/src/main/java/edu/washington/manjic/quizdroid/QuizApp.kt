@@ -35,7 +35,8 @@ class QuizApp : Application(){
 
         val  inputStream = assets.open("questions.json")
         val json = inputStream.bufferedReader().use{it.readText()}
-        repository.loadData(json)
+        Log.i(TAG, "start download")
+        repository.DownloadData(jsonURL, this)
 
         // put alarm
         val intent = Intent(BROADCAST)
@@ -51,7 +52,6 @@ class QuizApp : Application(){
             (1 * 60 * 1000),
             pendingIntent
         )
-        Log.i(TAG, "Quiz was loaded successfully.")
     }
 
     companion object{
