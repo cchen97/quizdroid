@@ -3,13 +3,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:id="@+id/container" android:gravity="center|start">
+              android:id="@+id/container"
+              android:gravity="center">
 
-    <SearchView
+    <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/input" android:gravity="center" android:contentDescription="Input your own json link">
-    </SearchView>
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:gravity="center"
+            android:id="@+id/editText" android:layout_weight="1"/>
     <Button
             android:text="Comfirm"
             android:layout_width="match_parent"

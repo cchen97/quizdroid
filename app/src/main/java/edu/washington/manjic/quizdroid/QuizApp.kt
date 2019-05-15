@@ -11,7 +11,6 @@ class QuizApp : Application(){
     private val USER_PREF_KEY = "USER_PREFERENCES_KEY"
     val repository = TopicRepository()
     private lateinit var sharedPreferences: SharedPreferences
-    private var jsonURL = ""
     private val JSON_KEY = "Json_Link"
     private var alarmManager: AlarmManager? = null
 
