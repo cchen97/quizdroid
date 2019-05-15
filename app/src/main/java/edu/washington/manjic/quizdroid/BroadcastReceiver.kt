@@ -15,7 +15,7 @@ class BroadcastReceiver : BroadcastReceiver() {
         when (intent?.action) {
             MainActivity.BROADCAST -> {
                 var link = intent.extras[LINK] as String
-
+                Log.i("toasst wokr",link)
                 Toast.makeText(context, "Downloading... $link", Toast.LENGTH_SHORT).show()
             }
         }

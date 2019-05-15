@@ -7,7 +7,7 @@ import android.app.PendingIntent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-//import android.content.SharedPreferences
+import android.content.SharedPreferences
 import android.content.Context
 import android.content.IntentFilter
 import android.support.constraint.ConstraintLayout
@@ -34,15 +34,28 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
+//    private val topics = listOf("Science!", "Mathematics", "Marvel Super Heroes")
     private val instance = QuizApp.getSingletonInstance()
-    var urlString = "https://tednewardsandbox.site44.com/questions.json"
+    var urlString = ""
     private var alarmManager: AlarmManager? = null
     private var topicList =  ArrayList<Topic>()
+    private lateinit var sharePreference:SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharePreference =  this.getSharedPreferences(
+            instance.USER_PREF_KEY, Context.MODE_PRIVATE
+        )
+
+        urlString = sharePreference.getString("Json_Link", "")!!
+
+        downloadData(this.urlString)
+    }
+
+    fun broadcastLink (){
 
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -61,12 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         alarmManager!!.setRepeating(
             AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-            (1 * 60 * 1000),
+            (1 * 30 * 1000),
             pendingIntent
         )
-        downloadData(this.urlString)
     }
-
     fun renderListView(listOfTopics:List<Topic>){
         Log.i("View", "Rendering LIST VIEW")
         val listOfTopicNames = listOfTopics.map { it ->
@@ -100,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     fun downloadData(url:String){
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
@@ -117,6 +129,7 @@ class MainActivity : AppCompatActivity() {
 
         val queue = Volley.newRequestQueue(this)
         queue.add(request)
+        broadcastLink ()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -150,6 +163,7 @@ class MainActivity : AppCompatActivity() {
         rootView.comfirmInput.setOnClickListener {
             Log.i("rerender urll", urlString)
             downloadData(this.urlString)
+            sharePreference.edit().putString("Json_Link", urlString).apply()
             alert.cancel()
         }
 
