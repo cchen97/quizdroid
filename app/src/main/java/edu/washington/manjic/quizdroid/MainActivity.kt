@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -16,10 +17,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.webkit.URLUtil
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.SimpleAdapter
+import android.widget.*
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -51,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         urlString = sharePreference.getString("Json_Link", "")!!
-
-        downloadData(this.urlString)
+        broadcastLink()
+//        downloadData(this.urlString)
     }
 
     fun broadcastLink (){
@@ -64,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         filter.addAction(MainActivity.BROADCAST)
         val receiver = BroadcastReceiver()
         registerReceiver(receiver, filter)
-        val intent = Intent(MainActivity.BROADCAST).putExtra(BroadcastReceiver.LINK, this.urlString)
+        val intent = Intent(MainActivity.BROADCAST)
+            .putExtra("link", this.urlString)
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
             0,
@@ -78,6 +77,22 @@ class MainActivity : AppCompatActivity() {
             pendingIntent
         )
     }
+
+    private inner class BroadcastReceiver : android.content.BroadcastReceiver()  {
+        val LINK = "edu.washington.manjic.quizdroid.LINK"
+        override fun onReceive(context: Context, intent: Intent) {
+
+            when (intent?.action) {
+                MainActivity.BROADCAST -> {
+                    var link = intent.extras["link"] as String
+                    Log.i("zr",link)
+                    downloadData(link)
+                    Toast.makeText(context, "Downloading... $link", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     fun renderListView(listOfTopics:List<Topic>){
         Log.i("View", "Rendering LIST VIEW")
         val listOfTopicNames = listOfTopics.map { it ->
