@@ -7,7 +7,7 @@ import android.app.PendingIntent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.content.SharedPreferences
+//import android.content.SharedPreferences
 import android.content.Context
 import android.content.IntentFilter
 import android.support.constraint.ConstraintLayout
@@ -34,9 +34,8 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-//    private val topics = listOf("Science!", "Mathematics", "Marvel Super Heroes")
     private val instance = QuizApp.getSingletonInstance()
-    private var urlString = "https://tednewardsandbox.site44.com/questions.json"
+    var urlString = "https://tednewardsandbox.site44.com/questions.json"
     private var alarmManager: AlarmManager? = null
     private var topicList =  ArrayList<Topic>()
 
@@ -47,11 +46,12 @@ class MainActivity : AppCompatActivity() {
 
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+
         val filter = IntentFilter()
-        filter.addAction(QuizApp.BROADCAST)
+        filter.addAction(MainActivity.BROADCAST)
         val receiver = BroadcastReceiver()
         registerReceiver(receiver, filter)
-        val intent = Intent(QuizApp.BROADCAST)
+        val intent = Intent(MainActivity.BROADCAST).putExtra(BroadcastReceiver.LINK, this.urlString)
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
             0,
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             pendingIntent
         )
         downloadData(this.urlString)
-
     }
 
     fun renderListView(listOfTopics:List<Topic>){
@@ -100,41 +99,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun parseData (array: JSONArray) : ArrayList<Topic> {
-        var topics = ArrayList<Topic>()
-        val array = array
-        for (i in 0 .. array.length()-1) {
-            val quizItem = array.getJSONObject(i)
-            val titleTopic = quizItem.getString("title")
-            Log.i("dataaaa", titleTopic)
-            val desc = quizItem.getString("desc")
-
-            val questionsList = quizItem.getJSONArray("questions")
-            val quizList = ArrayList<Quiz>()
-            for (j in 0..questionsList.length()-1){
-                val questionObject = questionsList.getJSONObject(j)
-                val text = questionObject.getString("text")
-                val answer =  questionObject.getString("answer").toInt()
-                val answerList = questionObject.getJSONArray("answers")
-                val quiz = Quiz(text, answerList.get(0).toString(), answerList.get(1).toString(), answerList.get(2).toString(),answerList.get(3).toString(),answer)
-                quizList.add(quiz)
-            }
-            val Topic = Topic(titleTopic,desc," ", quizList)
-            topics.add(Topic)
-            Log.i("test", "finish download")
-        }
-        return topics
-    }
 
     fun downloadData(url:String){
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
                 try {
                     val array = response
-                    topicList = parseData(array)
+                    topicList = instance.repository.parseData(array)
                     findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
                     findViewById<ConstraintLayout>(R.id.listContainer).setVisibility(View.VISIBLE)
-
                     renderListView(topicList.toList())
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -150,7 +123,6 @@ class MainActivity : AppCompatActivity() {
 
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.preference, menu)
-
         return true
     }
 
@@ -163,8 +135,6 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle("Input your own quiz").setView(rootView)
         val alert = builder.show()
 
-
-//        builder.show()
 
         rootView.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -184,5 +154,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    companion object{
+        const val BROADCAST = "edu.washington.manjic.quizBoard.BROADCAST"
     }
 }

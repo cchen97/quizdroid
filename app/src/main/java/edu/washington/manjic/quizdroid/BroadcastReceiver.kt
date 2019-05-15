@@ -13,13 +13,16 @@ class BroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 
         when (intent?.action) {
-            QuizApp.BROADCAST -> {
-                var link = QuizApp.jsonURL
+            MainActivity.BROADCAST -> {
+                var link = intent.extras[LINK] as String
 
                 Toast.makeText(context, "Downloading... $link", Toast.LENGTH_SHORT).show()
             }
         }
     }
-    
+
+    companion object {
+        const val LINK = "edu.washington.manjic.quizdroid.LINK"
+    }
 }
 
