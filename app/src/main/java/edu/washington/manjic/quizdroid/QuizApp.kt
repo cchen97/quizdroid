@@ -12,18 +12,10 @@ class QuizApp : Application(){
     val repository = TopicRepository()
     private lateinit var sharedPreferences: SharedPreferences
     private val JSON_KEY = "Json_Link"
-    private var alarmManager: AlarmManager? = null
 
 
 
     override fun onCreate(){
-
-        alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        val filter = IntentFilter()
-        filter.addAction(BROADCAST)
-        val receiver = BroadcastReceiver()
-        registerReceiver(receiver, filter)
 
         sharedPreferences = getSharedPreferences(USER_PREF_KEY, Context.MODE_PRIVATE)
         super.onCreate()
@@ -36,21 +28,6 @@ class QuizApp : Application(){
         val json = inputStream.bufferedReader().use{it.readText()}
         Log.i(TAG, "start download")
         repository.DownloadData(jsonURL, this)
-
-        // put alarm
-        val intent = Intent(BROADCAST)
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        alarmManager!!.setRepeating(
-            AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-            (1 * 60 * 1000),
-            pendingIntent
-        )
     }
 
     companion object{

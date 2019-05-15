@@ -24,7 +24,6 @@ class TopicRepository() {
         Log.i("list", topicName)
         Log.i("list", _topics.toString())
         val res = (_topics.filter { it.topicTitle == topicName })
-        Log.i("list", res.get(0).topicTitle)
         return res.first()
     }
 
@@ -96,6 +95,8 @@ class TopicRepository() {
                         topicList.add(Topic)
                         _topics = topicList
                         Log.i("test", "finish download")
+
+
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -105,7 +106,6 @@ class TopicRepository() {
 
         val queue = Volley.newRequestQueue(context)
         queue.add(request)
-        Log.i(QuizApp.TAG, "Quiz was loaded successfully.")
     }
 
 
