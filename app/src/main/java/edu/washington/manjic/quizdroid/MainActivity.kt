@@ -11,6 +11,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.Context
 import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import android.provider.Settings
 import android.support.constraint.ConstraintLayout
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,9 +25,11 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_preferences.view.*
 import org.json.JSONArray
 import org.json.JSONException
+import java.io.File
 import java.io.UnsupportedEncodingException
 import java.net.URL
 import java.util.ArrayList
@@ -41,16 +46,25 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharePreference =  this.getSharedPreferences(
-            instance.USER_PREF_KEY, Context.MODE_PRIVATE
-        )
+        val internetStatus = isNetworkAvailable()
+        if(isNetworkAvailable() == false){
+            findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
+            Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
+        }else if (isAirplaneModeOn(this) == true){
+            findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
+            Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
+        }else {
+            sharePreference =  this.getSharedPreferences(
+                instance.USER_PREF_KEY, Context.MODE_PRIVATE
+            )
 
-        urlString = sharePreference.getString("Json_Link", "")!!
-        broadcastLink()
-//        downloadData(this.urlString)
+            urlString = sharePreference.getString("Json_Link", "")!!
+            broadcastLink()
+        }
     }
 
     fun broadcastLink (){
@@ -73,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         alarmManager!!.setRepeating(
             AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-            (1 * 30 * 1000),
+            (10 * 60 * 1000),
             pendingIntent
         )
     }
@@ -135,6 +149,11 @@ class MainActivity : AppCompatActivity() {
                     topicList = instance.repository.parseData(array)
                     findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
                     findViewById<ConstraintLayout>(R.id.listContainer).setVisibility(View.VISIBLE)
+//                    val gson = Gson()
+//                    var jsonString:String = gson.toJson(topicList)
+//                    val file = File("/questions.json")
+//                    file.writeText(jsonString)
+
                     renderListView(topicList.toList())
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -146,6 +165,7 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
         broadcastLink ()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
@@ -185,6 +205,21 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }
+
+    private fun isAirplaneModeOn(context: Context): Boolean {
+
+        return Settings.System.getInt(
+            context.contentResolver,
+            Settings.Global.AIRPLANE_MODE_ON, 0
+        ) !== 0
+    }
 
     companion object{
         const val BROADCAST = "edu.washington.manjic.quizBoard.BROADCAST"

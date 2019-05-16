@@ -15,6 +15,11 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
+import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.google.gson.JsonObject
+
+
 
 
 class TopicRepository() {
@@ -32,6 +37,8 @@ class TopicRepository() {
     }
 
     fun parseData(array: JSONArray): ArrayList<Topic>{
+
+
         var topics = ArrayList<Topic>()
         val array = array
         for (i in 0 .. array.length()-1) {
