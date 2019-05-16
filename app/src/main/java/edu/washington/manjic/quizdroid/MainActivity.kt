@@ -47,14 +47,35 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        val retryBtn = findViewById<Button>(R.id.retry_btn)
+        retryBtn.visibility = View.GONE
+        retryBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         val internetStatus = isNetworkAvailable()
-        if(isNetworkAvailable() == false){
-            findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
+        if(!isNetworkAvailable()){
+            findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
             Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
-        }else if (isAirplaneModeOn(this) == true){
-            findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
+            retryBtn.visibility = View.VISIBLE
+        }else if (isAirplaneModeOn(this)){
+            findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
             Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("It looks like Airplane Mode is on! Would you like to go to Settings?")
+                .setTitle("Uh oh!")
+                .setNegativeButton("No"
+                ) { _, _ ->
+                    retryBtn.visibility = View.VISIBLE
+                }
+                .setPositiveButton("Yes"
+                ) { _, _ ->
+                    val intent = Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS)
+                    startActivity(intent)
+                }
+
+            val dialog = builder.create()
+            dialog.show()
         }else {
             sharePreference =  this.getSharedPreferences(
                 instance.USER_PREF_KEY, Context.MODE_PRIVATE
@@ -63,18 +84,19 @@ class MainActivity : AppCompatActivity() {
             urlString = sharePreference.getString("Json_Link", "")!!
             broadcastLink()
         }
+
     }
 
-    fun broadcastLink (){
+    private fun broadcastLink (){
 
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
 
         val filter = IntentFilter()
-        filter.addAction(MainActivity.BROADCAST)
+        filter.addAction(BROADCAST)
         val receiver = BroadcastReceiver()
         registerReceiver(receiver, filter)
-        val intent = Intent(MainActivity.BROADCAST)
+        val intent = Intent(BROADCAST)
             .putExtra("link", this.urlString)
         val pendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -94,8 +116,8 @@ class MainActivity : AppCompatActivity() {
         val LINK = "edu.washington.manjic.quizdroid.LINK"
         override fun onReceive(context: Context, intent: Intent) {
 
-            when (intent?.action) {
-                MainActivity.BROADCAST -> {
+            when (intent.action) {
+                BROADCAST -> {
                     var link = intent.extras["link"] as String
                     Log.i("zr",link)
                     downloadData(link)
@@ -145,8 +167,8 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val array = response
                     topicList = instance.repository.parseData(array)
-                    findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
-                    findViewById<ConstraintLayout>(R.id.listContainer).setVisibility(View.VISIBLE)
+                    findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
+                    findViewById<ConstraintLayout>(R.id.listContainer).visibility = View.VISIBLE
                     val gson = Gson()
                     var jsonString:String = gson.toJson(topicList)
 
@@ -180,7 +202,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        val inflater: LayoutInflater = this.getLayoutInflater()
+        val inflater: LayoutInflater = this.layoutInflater
         val rootView = inflater.inflate(R.layout.activity_preferences, null)
 
         val builder = AlertDialog.Builder(this)
