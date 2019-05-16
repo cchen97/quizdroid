@@ -26,16 +26,11 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_preferences.view.*
 import org.json.JSONArray
 import org.json.JSONException
-import java.io.File
-import java.io.FileOutputStream
-import java.io.UnsupportedEncodingException
-import java.net.URL
 import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
-//    private val topics = listOf("Science!", "Mathematics", "Marvel Super Heroes")
     private val instance = QuizApp.getSingletonInstance()
     var urlString = ""
     private var alarmManager: AlarmManager? = null
@@ -48,24 +43,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val retryBtn = findViewById<Button>(R.id.retry_btn)
-        retryBtn.visibility = View.GONE
+
         retryBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         if (isAirplaneModeOn(this)){
+
             findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
             Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
+
             val builder = AlertDialog.Builder(this)
             builder.setMessage("It looks like Airplane Mode is on! Would you like to go to Settings?")
                 .setTitle("Uh oh!")
-                .setNegativeButton("No"
-                ) { _, _ ->
-                    retryBtn.visibility = View.VISIBLE
-                }
-                .setPositiveButton("Yes"
-                ) { _, _ ->
+                .setNegativeButton("No") { _, _ -> retryBtn.visibility = View.VISIBLE }
+                .setPositiveButton("Yes") { _, _ ->
                     val intent = Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS)
                     startActivity(intent)
                 }
@@ -83,14 +76,10 @@ class MainActivity : AppCompatActivity() {
             urlString = sharePreference.getString("Json_Link", "")!!
             broadcastLink()
         }
-
     }
 
     private fun broadcastLink (){
-
         alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-
         val filter = IntentFilter()
         filter.addAction(BROADCAST)
         val receiver = BroadcastReceiver()
@@ -114,7 +103,6 @@ class MainActivity : AppCompatActivity() {
     private inner class BroadcastReceiver : android.content.BroadcastReceiver()  {
         val LINK = "edu.washington.manjic.quizdroid.LINK"
         override fun onReceive(context: Context, intent: Intent) {
-
             when (intent.action) {
                 BROADCAST -> {
                     var link = intent.extras["link"] as String
@@ -171,12 +159,10 @@ class MainActivity : AppCompatActivity() {
                     openFileOutput("questions.json", Context.MODE_PRIVATE).use {
                         it.write(jsonString.toByteArray())
                     }
-
                     renderListView(topicList.toList())
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     Toast.makeText(this, "Download failed. Please try again! ", Toast.LENGTH_SHORT).show()
-
                 }
 
             }, Response.ErrorListener { error -> Log.e("download data", error.toString())
@@ -197,14 +183,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         val inflater: LayoutInflater = this.layoutInflater
         val rootView = inflater.inflate(R.layout.activity_preferences, null)
 
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Input your own quiz").setView(rootView)
         val alert = builder.show()
-
 
         rootView.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -234,7 +218,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isAirplaneModeOn(context: Context): Boolean {
-
         return Settings.System.getInt(
             context.contentResolver,
             Settings.Global.AIRPLANE_MODE_ON, 0

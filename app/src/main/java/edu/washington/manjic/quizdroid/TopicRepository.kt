@@ -36,7 +36,6 @@ class TopicRepository() {
 
     fun parseData(array: JSONArray): ArrayList<Topic>{
 
-
         var topics = ArrayList<Topic>()
         val array = array
         for (i in 0 .. array.length()-1) {
