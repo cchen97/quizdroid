@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             list, R.layout.two_line_list_item, arrayOf("line1", "line2"),
             intArrayOf(R.id.line_a, R.id.line_b))
         lv.adapter = simpleAdapter
-
+        Toast.makeText(this, "Download Success！Enjoy the quiz! ", Toast.LENGTH_SHORT).show()
         lv.setOnItemClickListener { _, _, position, _ ->
             val item = listOfTopicNames[position]
 
@@ -154,14 +154,16 @@ class MainActivity : AppCompatActivity() {
                         it.write(jsonString.toByteArray())
                     }
 
-                    Log.i("hahaha", fileList()[0])
-
                     renderListView(topicList.toList())
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    Toast.makeText(this, "Download failed. Please try again! ", Toast.LENGTH_SHORT).show()
+
                 }
 
-            }, Response.ErrorListener { error -> Log.e("download data", error.toString()) })
+            }, Response.ErrorListener { error -> Log.e("download data", error.toString())
+                Toast.makeText(this, "Download failed. Please try again! ", Toast.LENGTH_SHORT).show()
+            })
 
         val queue = Volley.newRequestQueue(this)
         queue.add(request)
