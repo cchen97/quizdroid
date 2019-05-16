@@ -118,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             when (intent.action) {
                 BROADCAST -> {
                     var link = intent.extras["link"] as String
-                    Log.i("zr",link)
                     downloadData(link)
                     Toast.makeText(context, "Downloading... $link", Toast.LENGTH_SHORT).show()
                 }
@@ -127,7 +126,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun renderListView(listOfTopics:List<Topic>){
-        Log.i("View", "Rendering LIST VIEW")
         val listOfTopicNames = listOfTopics.map { it ->
             it.topicTitle
         }
@@ -141,7 +139,6 @@ class MainActivity : AppCompatActivity() {
             item
         }
 
-        Log.i("get urll", "render UI")
         val lv = findViewById<ListView>(R.id.listView_topics)
         val simpleAdapter = SimpleAdapter(this,
             list, R.layout.two_line_list_item, arrayOf("line1", "line2"),
@@ -212,7 +209,6 @@ class MainActivity : AppCompatActivity() {
         rootView.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.i("change urll", s.toString())
                 if (URLUtil.isValidUrl(s.toString())) {
                     urlString = s.toString()
                 }
@@ -221,7 +217,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         rootView.comfirmInput.setOnClickListener {
-            Log.i("rerender urll", urlString)
             downloadData(this.urlString)
             sharePreference.edit().putString("Json_Link", urlString).apply()
             alert.cancel()

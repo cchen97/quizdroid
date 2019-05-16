@@ -50,7 +50,6 @@ class QuizFragment: Fragment(){
         answerRadioBtnGroup.setOnCheckedChangeListener { _, checkedId ->
             _selectedAnswer = view.findViewById<RadioButton>(checkedId).text as String
             submitBtn.isEnabled = true
-            Log.i(TAG, _selectedAnswer)
         }
         val quizCorrectAnswer = currQuestion?.getCorrectAnswer() as String
         submitBtn.setOnClickListener {

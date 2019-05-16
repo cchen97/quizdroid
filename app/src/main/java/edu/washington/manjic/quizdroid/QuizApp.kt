@@ -23,10 +23,6 @@ class QuizApp : Application(){
             .edit()
             .putString(JSON_KEY, jsonURL)
             .apply()
-
-//        val inputStream = assets.open("questions.json")
-//        val json = inputStream.bufferedReader().use{it.readText()}
-        Log.i(TAG, "start download")
     }
 
     companion object{
