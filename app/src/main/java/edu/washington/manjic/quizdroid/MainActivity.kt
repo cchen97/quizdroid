@@ -133,6 +133,8 @@ class MainActivity : AppCompatActivity() {
             intArrayOf(R.id.line_a, R.id.line_b))
         lv.adapter = simpleAdapter
         Toast.makeText(this, "Download Success！Enjoy the quiz! ", Toast.LENGTH_SHORT).show()
+        sharePreference.edit().putString("Json_Link", urlString).apply()
+
         lv.setOnItemClickListener { _, _, position, _ ->
             val item = listOfTopicNames[position]
 
@@ -140,9 +142,7 @@ class MainActivity : AppCompatActivity() {
                 .putExtra(ControllerActivity.TOPIC_NAME, item)
             startActivity(intent)
         }
-
     }
-
 
 
     fun downloadData(url:String){
@@ -193,16 +193,17 @@ class MainActivity : AppCompatActivity() {
         rootView.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if (URLUtil.isValidUrl(s.toString())) {
-                    urlString = s.toString()
-                }
+                urlString = s.toString()
             }
             override fun afterTextChanged(s: Editable) {}
         })
 
         rootView.comfirmInput.setOnClickListener {
-            downloadData(this.urlString)
-            sharePreference.edit().putString("Json_Link", urlString).apply()
+            if (URLUtil.isValidUrl(this.urlString) == false) {
+                Toast.makeText(applicationContext, "Invalid input!", Toast.LENGTH_SHORT).show()
+            }else {
+                downloadData(this.urlString)
+            }
             alert.cancel()
         }
 
