@@ -4,15 +4,12 @@ import android.app.Activity
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
+import android.content.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.content.Intent
-import android.content.SharedPreferences
-import android.content.Context
-import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.os.Environment
 import android.provider.Settings
 import android.support.constraint.ConstraintLayout
 import android.text.Editable
@@ -30,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_preferences.view.*
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.File
+import java.io.FileOutputStream
 import java.io.UnsupportedEncodingException
 import java.net.URL
 import java.util.ArrayList
@@ -149,10 +147,14 @@ class MainActivity : AppCompatActivity() {
                     topicList = instance.repository.parseData(array)
                     findViewById<ProgressBar>(R.id.progress_loader).setVisibility(View.GONE)
                     findViewById<ConstraintLayout>(R.id.listContainer).setVisibility(View.VISIBLE)
-//                    val gson = Gson()
-//                    var jsonString:String = gson.toJson(topicList)
-//                    val file = File("/questions.json")
-//                    file.writeText(jsonString)
+                    val gson = Gson()
+                    var jsonString:String = gson.toJson(topicList)
+
+                    openFileOutput("questions.json", Context.MODE_PRIVATE).use {
+                        it.write(jsonString.toByteArray())
+                    }
+
+                    Log.i("hahaha", fileList()[0])
 
                     renderListView(topicList.toList())
                 } catch (e: JSONException) {
