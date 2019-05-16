@@ -53,12 +53,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-        val internetStatus = isNetworkAvailable()
-        if(!isNetworkAvailable()){
-            findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
-            Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
-            retryBtn.visibility = View.VISIBLE
-        }else if (isAirplaneModeOn(this)){
+
+        if (isAirplaneModeOn(this)){
             findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
             Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
             val builder = AlertDialog.Builder(this)
@@ -73,9 +69,12 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS)
                     startActivity(intent)
                 }
-
             val dialog = builder.create()
             dialog.show()
+        }else if(!isNetworkAvailable()){
+            findViewById<ProgressBar>(R.id.progress_loader).visibility = View.GONE
+            Toast.makeText(this, "You don't have access to the internet!", Toast.LENGTH_SHORT).show()
+            retryBtn.visibility = View.VISIBLE
         }else {
             sharePreference =  this.getSharedPreferences(
                 instance.USER_PREF_KEY, Context.MODE_PRIVATE

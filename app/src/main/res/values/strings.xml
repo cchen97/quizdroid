@@ -31,4 +31,5 @@
     <string name="sharedPrefs_storedUserPrefs_url">QUIZDROID_STORED_USER_PREFERENCES_URL</string>
     <string name="sharedPrefs_storedUserPrefs_refresh">QUIZDROID_STORED_USER_PREFERENCES_REFRESH</string>
     <string name="title_activity_preferences">Preferences</string>
+    <string name="retry">Retry</string>
 </resources>
